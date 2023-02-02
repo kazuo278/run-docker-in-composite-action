@@ -1,0 +1,28 @@
+name: test action
+
+on:
+  workflow_dispatch:
+  push:
+
+env:
+  # composite actionに渡る
+  CUSTOM_ENV1: "独自環境変数: env"
+
+jobs:
+  test:
+    env:
+      # composite actionに渡る
+      CUSTOM_ENV2: "独自環境変数: jobs.<job_id>.env"
+    name: test-action
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: kazuo278/run-docker-in-composite-action@main
+        with:
+          arg1: 1個目
+          arg3: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          # composite actionに渡る
+          CUSTOM_ENV3: "独自環境変数: jobs.<job_id>.steps[*].env"
+          CUSTOM_SECRET: ${{ secrets.GITHUB_TOKEN }}
+

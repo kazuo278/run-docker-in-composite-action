@@ -1,0 +1,20 @@
+name: debug
+
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    name: test-action
+    runs-on: ubuntu-22.04
+    steps:
+      - run: env | sort
+        id: env
+      - name: github context
+        run: echo '${{ toJSON(github) }}' | jq
+        id: github-context
+      - name: runner context
+        run: echo '${{ toJSON(runner) }}' | jq
+        id: runner-context
+      - name: steps context
+        run: echo '${{ toJSON(steps) }}' | jq
+        id: steps-context

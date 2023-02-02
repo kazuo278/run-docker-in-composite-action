@@ -1,21 +1,24 @@
 name: 'handle-image-version'
 description: 'java'
 inputs:
-  java_version:
-    description: 'java version'
+  arg1:
+    description: '引数１'
     required: false
-    default: 'latest'
-  test_str:
-    description: '起動時に出力する文字列'
-    required: true
+    default: '1個目の引数@Default'
+  arg2:
+    description: '引数２'
+    required: false
+  arg3:
+    description: '引数３'
+    required: false
+
 runs:
   using: "composite"
   steps:
-    - run: pwd
+    - run: >-
+        ${{ github.action_path }}/main.sh
+        "${{ inputs.arg1 }}" "${{ inputs.arg2 }}" "${{ inputs.arg3 }}"
       shell: bash
-    - run: ls -a
+    - run: cd ${{ github.action_path }} && ls -l && pwd
       shell: bash
-    - run: env
-      shell: bash
-    - run: docker ps
-      shell: bash
+

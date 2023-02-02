@@ -1,0 +1,13 @@
+name: 'docker action'
+description: 'java'
+inputs:
+  java_version:
+    description: 'java version'
+    required: false
+    default: 'latest'
+  test_str:
+    description: '起動時に出力する文字列'
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
